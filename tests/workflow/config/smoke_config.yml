@@ -1,0 +1,4 @@
+build_plan: tests/workflow/fixtures/smoke_build_plan.tsv
+resources_dir: tests/workflow/fixtures/genomes
+final_database: tests/workflow/output/MetaproDB_smoke.faa
+host_proteome: null

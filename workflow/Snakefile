@@ -1,0 +1,78 @@
+import pandas as pd
+from pathlib import Path
+
+build_plan = pd.read_csv(config["build_plan"], sep="\t")
+
+required_cols = {
+    "genus_file_stub",
+    "genus",
+    "biome_id",
+    "download_required",
+    "ready_to_build"
+}
+
+missing_cols = required_cols.difference(build_plan.columns)
+if missing_cols:
+    raise ValueError(
+        "Build plan is missing required columns: "
+        + ", ".join(sorted(missing_cols))
+        + ". Please regenerate the build plan with the current metaprodb planner."
+    )
+
+GENERA = build_plan["genus_file_stub"].tolist()
+
+BUILD_DIR = str(Path(config["final_database"]).parent)
+RESOURCES_DIR = config["resources_dir"]
+
+def row_for(wildcards):
+    rows = build_plan.loc[build_plan["genus_file_stub"] == wildcards.genus]
+    if rows.empty:
+        raise ValueError(f"No build-plan row found for genus: {wildcards.genus}")
+    return rows.iloc[0]
+
+def biome_id_for(wildcards):
+    return row_for(wildcards)["biome_id"]
+
+def genus_name_for(wildcards):
+    return row_for(wildcards)["genus"]
+
+def normalize_bool(value, field_name, genus):
+    if pd.isna(value):
+        raise ValueError(f"'{field_name}' is NA for genus: {genus}")
+
+    if isinstance(value, bool):
+        return value
+
+    if isinstance(value, (int, float)):
+        return bool(value)
+
+    if isinstance(value, str):
+        value_norm = value.strip().lower()
+        if value_norm in {"true", "t", "1", "yes", "y"}:
+            return True
+        if value_norm in {"false", "f", "0", "no", "n"}:
+            return False
+
+    raise ValueError(
+        f"Could not interpret '{field_name}' as boolean for genus {genus}: {value!r}"
+    )
+
+def download_required_for(wildcards):
+    row = row_for(wildcards)
+    val = normalize_bool(row["download_required"], "download_required", wildcards.genus)
+    return "TRUE" if val else "FALSE"
+
+def protein_fastas_for_build():
+    return [f"{BUILD_DIR}/proteins/{g}.faa" for g in GENERA]
+
+def protein_manifests_for_build():
+    return [f"{BUILD_DIR}/proteins/{g}.manifest.tsv" for g in GENERA]
+
+rule all:
+    input:
+        config["final_database"]
+
+include: "rules/download_genomes.smk"
+include: "rules/rehydrate_genomes.smk"
+include: "rules/extract_proteins.smk"
+include: "rules/build_database.smk"

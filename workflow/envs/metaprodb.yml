@@ -1,0 +1,9 @@
+name: metaprodb
+channels:
+  - conda-forge
+  - bioconda
+
+dependencies:
+  - snakemake
+  - ncbi-datasets-cli
+  - seqkit

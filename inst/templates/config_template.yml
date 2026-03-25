@@ -1,0 +1,11 @@
+biome_id: example_oral
+rank: Genus
+top_n: 50
+include_core: true
+core_prevalence: 0.5
+core_abundance: 0.01
+resource_dir: resources_downloaded
+output_dir: results/example_oral_top50
+add_host: none
+add_contaminants: true
+decoy_strategy: reverse

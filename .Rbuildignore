@@ -1,0 +1,10 @@
+^\.snakemake$
+^results$
+^cache$
+^resources_downloaded$
+^workflow$
+^scripts$
+^docs$
+^examples$
+^data-raw$
+^paper$

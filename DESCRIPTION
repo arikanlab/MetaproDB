@@ -1,0 +1,29 @@
+Package: metaprodb
+Type: Package
+Title: Framework for Biome-Informed Metaproteomic Database Construction
+Version: 0.0.1
+Authors@R: 
+    person(given = "Muzaffer", family = "Arikan", role = c("aut", "cre"), email = "muzafferarikan@istanbul.edu.tr")
+Description: Tools for selecting taxa from curated biome objects or user-provided inputs,
+    generating manifests, and orchestrating construction of biome-informed metaproteomic
+    protein databases.
+License: file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Depends:
+    R (>= 4.3)
+Imports:
+    dplyr,
+    methods,
+    microbiome,
+    microbiomeutilities,
+    phyloseq,
+    readr,
+    rlang,
+    tibble,
+    yaml
+Suggests:
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
