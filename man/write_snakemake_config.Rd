@@ -9,7 +9,10 @@ write_snakemake_config(
   final_database,
   resources_dir,
   path,
-  host_proteome = NULL
+  host_proteome = NULL,
+  download_failure_policy = "permissive",
+  min_genome_success_fraction = 0.9,
+  min_genus_success_fraction = 0.85
 )
 }
 \arguments{
@@ -22,6 +25,17 @@ write_snakemake_config(
 \item{path}{Output YAML path.}
 
 \item{host_proteome}{Optional path to a host protein FASTA file.}
+
+\item{download_failure_policy}{How to handle partial download/rehydration failures.
+Must be either \code{"permissive"} or \code{"strict"}.}
+
+\item{min_genome_success_fraction}{Minimum fraction of expected genomes that
+must be successfully recovered for the build to continue in permissive mode.
+Must be between 0 and 1.}
+
+\item{min_genus_success_fraction}{Minimum fraction of selected genera that
+must be represented by at least one recovered protein FASTA for the build
+to continue in permissive mode. Must be between 0 and 1.}
 }
 \value{
 Invisibly returns \code{path}.

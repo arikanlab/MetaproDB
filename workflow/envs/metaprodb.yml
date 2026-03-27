@@ -4,6 +4,9 @@ channels:
   - bioconda
 
 dependencies:
+  - python=3.11
   - snakemake
+  - pandas
+  - pyyaml
   - ncbi-datasets-cli
   - seqkit

@@ -14,7 +14,9 @@ plan_database_build_generic(
 \arguments{
 \item{manifest_tbl}{Output of \code{build_genus_manifest()}.}
 
-\item{resource_dir}{Directory containing genus genome zip files.}
+\item{resource_dir}{Directory containing genus genome zip files, or a
+dedicated directory where genome zip files will be downloaded for the
+current build.}
 
 \item{output_root}{Root output directory for database build products.}
 

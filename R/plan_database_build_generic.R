@@ -7,7 +7,9 @@
 #' fresh genome archives for all selected genera (`"fresh"`).
 #'
 #' @param manifest_tbl Output of `build_genus_manifest()`.
-#' @param resource_dir Directory containing genus genome zip files.
+#' @param resource_dir Directory containing genus genome zip files, or a
+#'   dedicated directory where genome zip files will be downloaded for the
+#'   current build.
 #' @param output_root Root output directory for database build products.
 #' @param resource_mode Resource handling mode. `"cache"` uses only existing local
 #'   genome zip files and does not trigger downloads. `"fresh"` marks all genera
@@ -23,8 +25,12 @@ plan_database_build_generic <- function(manifest_tbl,
     rlang::abort("`manifest_tbl` must be a data frame.")
   }
 
+  if (!is.character(resource_dir) || length(resource_dir) != 1 || is.na(resource_dir)) {
+    rlang::abort("`resource_dir` must be a single non-missing character value.")
+  }
+
   if (!dir.exists(resource_dir)) {
-    rlang::abort(paste0("Resource directory not found: ", resource_dir))
+    dir.create(resource_dir, recursive = TRUE, showWarnings = FALSE)
   }
 
   resource_mode <- match.arg(resource_mode)

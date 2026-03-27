@@ -34,6 +34,7 @@ The Snakemake workflow is responsible for:
 - merging selected proteins into a database
 - deduplicating sequences
 - producing final database outputs
+- evaluating build completeness using configurable recovery thresholds
 
 ## Main features
 
@@ -45,18 +46,22 @@ The Snakemake workflow is responsible for:
 - Optional host proteome merging
 - Post-build QC summaries
 - Provenance reporting for reproducibility
+- Threshold-based handling of partial genome recovery during workflow execution
 
 ## Installation
 
-MetaproDB has two components that work together:
+MetaproDB has two coordinated components:
 
-1. an **R package** for biome loading, taxon selection, manifest generation, and workflow planning  
-2. a **Snakemake workflow** for database construction
+- an **R package** for planning database builds
+- a **Snakemake workflow** for genome download, rehydration, protein extraction, and database assembly
 
-These components have different dependency layers:
+The recommended setup is:
 
-- **R package dependencies** are declared in `DESCRIPTION`
-- **workflow/tool dependencies** are declared in `workflow/envs/metaprodb.yml`
+1. clone the repository
+2. create and activate the workflow conda environment
+3. install the R package from the repository
+4. verify the required tools
+5. run the smoke test
 
 ### 1. Clone the repository
 
@@ -65,35 +70,41 @@ git clone https://github.com/arikanlab/MetaproDB.git
 cd MetaproDB
 ```
 
-### 2. Create and activate the workflow environment
+### 2. Create and activate the conda environment
 
-Create the conda environment used by the Snakemake workflow:
+Create the environment used for the Snakemake workflow and command-line tools:
 
 ```bash
 conda env create -f workflow/envs/metaprodb.yml
 conda activate metaprodb
 ```
 
-This environment installs the main workflow tools, including:
+This environment provides the main workflow dependencies, including:
 
 - `snakemake`
 - `ncbi-datasets-cli`
 - `seqkit`
 
+For more reliable dependency resolution, it is recommended to enable strict channel priority:
+
+```bash
+conda config --set channel_priority strict
+```
+
 ### 3. Install the R package
 
-Start R from the repository root and install the package:
+With the `metaprodb` conda environment still activated, start R from the repository root and install the package:
 
 ```r
 install.packages("devtools")
 devtools::install(".")
 ```
 
-This installs the R package together with the dependencies listed in `DESCRIPTION`.
+This installs the MetaproDB R package together with the R dependencies listed in `DESCRIPTION`.
 
-### 4. Confirm required command-line tools are available
+### 4. Verify the installation
 
-In the activated conda environment, confirm that the workflow tools are available:
+From the activated conda environment, confirm that the required workflow tools are available:
 
 ```bash
 which snakemake
@@ -101,22 +112,20 @@ which datasets
 which seqkit
 ```
 
-You should also be able to run:
+You can also check tool versions:
 
 ```bash
 datasets --version
 seqkit version
 ```
 
-### 5. Recommended conda configuration
+Then confirm that the R package loads:
 
-For more reliable dependency resolution:
-
-```bash
-conda config --set channel_priority strict
+```r
+library(metaprodb)
 ```
 
-### 6. Run the workflow smoke test
+### 5. Run the workflow smoke test
 
 After installation, run:
 
@@ -124,7 +133,7 @@ After installation, run:
 bash tests/workflow/smoke_test.sh
 ```
 
-This runs a small cache-mode workflow test using local fixture genome archives and checks that the expected output files are produced.
+This smoke test is fully local and does not depend on live NCBI rehydration.
 
 ## Inputs
 
@@ -133,6 +142,33 @@ MetaproDB can be used with either of the following input types:
 ### 1. Bundled curated biome resources
 
 MetaproDB includes bundled biome objects together with metadata describing the curated biome panel. These resources can be used directly for taxon selection and database planning.
+
+
+The bundled biome set currently includes the following curated resources. Use the `biome_id` values below with `plan_build_from_biome()`.
+
+| biome_id | Samples (n) |
+|---|---:|
+| blood | 226 |
+| buccal_mucosa | 287 |
+| dairy_products | 862 |
+| drinking_water | 158 |
+| fermented_beverages | 120 |
+| fermented_vegetables | 289 |
+| forest_soil | 1368 |
+| hydrothermal_vents | 113 |
+| nasal_cavity | 1603 |
+| pharynx | 526 |
+| saliva | 4881 |
+| sediment | 2420 |
+| skin | 5920 |
+| soil | 3445 |
+| supragingival_plaque | 487 |
+| thermal_springs | 663 |
+| throat | 660 |
+| tongue_dorsum | 473 |
+| trachea | 238 |
+| vagina | 4524 |
+
 
 ### 2. User-provided `phyloseq` objects
 
@@ -172,8 +208,6 @@ res <- plan_build_from_biome(
 
 This creates a build plan and writes the workflow files needed to run database construction. The returned object `res` contains the selected taxa, build plan information, and paths to generated files.
 
-The build plan records, for each selected genus, expected resource files and workflow status fields such as whether download is required and whether the genus is ready to build.
-
 Typical generated files include:
 
 - `results/database_builds/saliva/saliva_build_plan.tsv`
@@ -194,10 +228,15 @@ Typical outputs include:
 
 - `results/database_builds/saliva/MetaproDB_saliva.faa`
 - `results/database_builds/saliva/MetaproDB_saliva.manifest.tsv`
+- `results/database_builds/saliva/build_completeness.tsv`
 
 ## Custom phyloseq workflow
 
 Use a user-provided phyloseq object to build a database tailored to that dataset.
+
+### Important note on `resource_dir`
+
+For custom `phyloseq` workflows, set `resource_dir` to an **empty or dedicated directory** for that build. This avoids unintended reuse of previously cached genome archives and ensures that genome downloads for the current build are written to a user-controlled location.
 
 ### Step 1: plan the build in R
 
@@ -209,7 +248,7 @@ ps <- readRDS("my_phyloseq.rds")
 res <- plan_build_from_phyloseq(
   ps = ps,
   biome_id = "my_microbiome",
-  resource_dir = "resources/genomes",
+  resource_dir = "results/database_builds/my_microbiome/genome_cache",
   top_n = 20,
   include_core = TRUE,
   prevalence = 0.5,
@@ -219,8 +258,6 @@ res <- plan_build_from_phyloseq(
 ```
 
 This creates a build plan and writes the workflow files needed to run database construction. The returned object `res` contains the selected taxa, build plan information, and paths to generated files.
-
-The build plan records, for each selected genus, expected resource files and workflow status fields such as whether download is required and whether the genus is ready to build.
 
 Typical generated files include:
 
@@ -242,6 +279,26 @@ Typical outputs include:
 
 - `results/database_builds/my_microbiome/MetaproDB_my_microbiome.faa`
 - `results/database_builds/my_microbiome/MetaproDB_my_microbiome.manifest.tsv`
+- `results/database_builds/my_microbiome/build_completeness.tsv`
+
+## Handling partial genome recovery
+
+Genome download and rehydration can occasionally be incomplete because of remote resource availability. MetaproDB therefore supports threshold-based handling of partial recovery during workflow execution.
+
+The generated Snakemake config includes:
+
+- `download_failure_policy`
+- `min_genome_success_fraction`
+- `min_genus_success_fraction`
+
+By default, custom builds are configured with a **permissive** policy and threshold values that allow the workflow to continue when recovery remains sufficiently complete. Build success is then evaluated using:
+
+- the fraction of selected genera represented by at least one recovered protein FASTA
+- the fraction of expected genomes successfully recovered
+
+These summaries are written to:
+
+- `build_completeness.tsv`
 
 ## Optional host proteome support
 
@@ -266,9 +323,10 @@ The workflow appends the supplied host FASTA during final database assembly and 
 A typical completed build produces:
 
 - a final protein FASTA database
-- a manifest describing included genera
+- a manifest describing included genera and assemblies
 - a build plan table
 - a Snakemake configuration file
+- a build completeness summary
 - QC summary outputs
 - provenance outputs
 
@@ -324,11 +382,35 @@ At a high level, the MetaproDB workflow is:
 3. generate a genus manifest and build plan
 4. write a Snakemake configuration file
 5. run Snakemake to construct the database
-6. inspect final outputs, QC summaries, and provenance files
+6. inspect final outputs, build completeness summaries, QC summaries, and provenance files
+
+## Current scope and limitations
+
+MetaproDB currently supports reproducible, biome-informed metaproteomic database construction from either bundled curated biome resources or user-provided phyloseq objects.
+
+Current release scope:
+
+- database planning is performed in R
+- database construction is executed with the bundled Snakemake workflow
+- taxon selection is based on top-N abundance with optional core taxa inclusion
+- genome downloads for custom phyloseq workflows are written to a user-specified resource directory
+- host proteome inclusion is supported only when a user-supplied host FASTA file is provided
+- partial genome recovery can be handled under configurable completeness thresholds
+
+MetaproDB does not currently:
+
+- automatically download host proteomes
+- claim universal superiority over alternative database construction strategies
+- replace matched metagenome-based database construction where those data are available and appropriate
+
+## Citation
+
+If you use MetaproDB, please cite the GitHub repository/release. A manuscript citation will be added here after publication.
 
 ## Notes
 
-- The examples above assume use of the bundled genome resource archives under `resources/genomes/`.
-- When working with bundled curated biomes, the genus index is read from `resources/genus_index.tsv`.
+- The bundled-biome examples above assume use of the tracked genome resource archives under `resources/genomes/`.
+- For custom `phyloseq` workflows, use a dedicated `resource_dir` for the current build rather than a shared cache directory.
 - The examples in this README are repository-oriented and assume access to bundled resource files included in the source checkout.
 - For custom workflows, users are responsible for providing appropriate input data and for ensuring that required external tools are available in the active conda environment.
+- Host proteomes must be supplied by the user if host sequence inclusion is desired.

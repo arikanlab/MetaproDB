@@ -22,3 +22,16 @@ paper/
 data-raw/
 examples/
 docs/
+
+resources/*
+!resources/genomes/
+!resources/genomes/**
+
+tests/workflow/output/
+!tests/
+!tests/workflow/
+!tests/workflow/smoke_test.sh
+!tests/workflow/config/
+!tests/workflow/config/**
+!tests/workflow/fixtures/
+!tests/workflow/fixtures/**

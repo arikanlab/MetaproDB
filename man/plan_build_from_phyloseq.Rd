@@ -15,7 +15,10 @@ plan_build_from_phyloseq(
   prevalence = 0.5,
   abundance = 0.01,
   keep_unclassified = FALSE,
-  write_plan = TRUE
+  write_plan = TRUE,
+  download_failure_policy = "permissive",
+  min_genome_success_fraction = 0.9,
+  min_genus_success_fraction = 0.85
 )
 }
 \arguments{
@@ -23,7 +26,9 @@ plan_build_from_phyloseq(
 
 \item{biome_id}{Identifier for the custom biome (used for output paths).}
 
-\item{resource_dir}{Directory containing genus genome zip files.}
+\item{resource_dir}{Directory containing genus genome zip files, or a
+dedicated directory where genome zip files will be downloaded for the
+current build.}
 
 \item{output_root}{Root output directory for build products.}
 
@@ -40,6 +45,17 @@ plan_build_from_phyloseq(
 \item{keep_unclassified}{Logical; if \code{FALSE}, remove uninformative taxon labels.}
 
 \item{write_plan}{Logical; if \code{TRUE}, write the build plan TSV to disk.}
+
+\item{download_failure_policy}{How to handle partial download/rehydration
+failures in the workflow config. Must be either \code{"permissive"} or \code{"strict"}.}
+
+\item{min_genome_success_fraction}{Minimum fraction of expected genomes that
+must be successfully recovered for the build to continue in permissive mode.
+Must be between 0 and 1.}
+
+\item{min_genus_success_fraction}{Minimum fraction of selected genera that
+must be represented by at least one recovered protein FASTA for the build
+to continue in permissive mode. Must be between 0 and 1.}
 }
 \value{
 A named list with elements:
@@ -48,6 +64,8 @@ A named list with elements:
 \item{manifest}{Genus manifest}
 \item{build_plan}{Workflow-ready build plan}
 \item{build_plan_path}{Output path for the build plan TSV}
+\item{config_path}{Output path for the Snakemake config YAML}
+\item{final_database_path}{Planned output path for the final FASTA}
 }
 }
 \description{

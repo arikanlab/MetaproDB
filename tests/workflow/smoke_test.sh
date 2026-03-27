@@ -18,9 +18,26 @@ if [[ ! -f "$SNAKEFILE" ]]; then
   exit 1
 fi
 
+if [[ -z "${CONDA_PREFIX:-}" ]]; then
+  echo "ERROR: No active conda environment detected. Please activate the metaprodb environment first."
+  exit 1
+fi
+
+PYTHON_BIN="${CONDA_PREFIX}/bin/python"
+
+if [[ ! -x "$PYTHON_BIN" ]]; then
+  echo "ERROR: Python not found in active conda environment: $PYTHON_BIN"
+  exit 1
+fi
+
+if ! "$PYTHON_BIN" -c "import yaml" >/dev/null 2>&1; then
+  echo "ERROR: PyYAML is not available in $PYTHON_BIN"
+  exit 1
+fi
+
 snakemake -s "$SNAKEFILE" --configfile "$CONFIG" --cores 2 --use-conda --quiet
 
-final_db="$(python - "$CONFIG" <<'PY'
+final_db="$("$PYTHON_BIN" - "$CONFIG" <<'PY'
 import sys
 import yaml
 

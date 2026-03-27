@@ -44,7 +44,13 @@ fi
   datasets download genome taxon "$genus" \
     --include protein \
     --assembly-level complete \
+    --assembly-source RefSeq \
     --dehydrated \
+    --annotated \
+    --assembly-version latest \
+    --exclude-multi-isolate \
+    --exclude-atypical \
+    --reference \
     --filename "$zip_file"
 
   echo

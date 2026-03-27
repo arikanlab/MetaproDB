@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from pathlib import Path
 
 build_plan = pd.read_csv(config["build_plan"], sep="\t")
@@ -24,6 +25,23 @@ GENERA = build_plan["genus_file_stub"].tolist()
 BUILD_DIR = str(Path(config["final_database"]).parent)
 RESOURCES_DIR = config["resources_dir"]
 
+DOWNLOAD_FAILURE_POLICY = config.get("download_failure_policy", "permissive")
+MIN_GENOME_SUCCESS_FRACTION = float(config.get("min_genome_success_fraction", 0.90))
+MIN_GENUS_SUCCESS_FRACTION = float(config.get("min_genus_success_fraction", 0.85))
+
+if DOWNLOAD_FAILURE_POLICY not in {"strict", "permissive"}:
+    raise ValueError(
+        f"Invalid download_failure_policy: {DOWNLOAD_FAILURE_POLICY!r}. "
+        "Expected 'strict' or 'permissive'."
+    )
+
+for name, value in [
+    ("min_genome_success_fraction", MIN_GENOME_SUCCESS_FRACTION),
+    ("min_genus_success_fraction", MIN_GENUS_SUCCESS_FRACTION),
+]:
+    if not (0.0 <= value <= 1.0):
+        raise ValueError(f"{name} must be between 0 and 1, got {value!r}")
+
 def row_for(wildcards):
     rows = build_plan.loc[build_plan["genus_file_stub"] == wildcards.genus]
     if rows.empty:
@@ -36,15 +54,19 @@ def biome_id_for(wildcards):
 def genus_name_for(wildcards):
     return row_for(wildcards)["genus"]
 
+def planned_protein_fasta_for(wildcards):
+    return row_for(wildcards)["protein_fasta"]
+
 def normalize_bool(value, field_name, genus):
     if pd.isna(value):
         raise ValueError(f"'{field_name}' is NA for genus: {genus}")
 
-    if isinstance(value, bool):
-        return value
-
-    if isinstance(value, (int, float)):
+    if isinstance(value, (bool, np.bool_)):
         return bool(value)
+
+    if isinstance(value, (int, float, np.integer, np.floating)):
+        if value in (0, 1):
+            return bool(value)
 
     if isinstance(value, str):
         value_norm = value.strip().lower()
@@ -54,7 +76,7 @@ def normalize_bool(value, field_name, genus):
             return False
 
     raise ValueError(
-        f"Could not interpret '{field_name}' as boolean for genus {genus}: {value!r}"
+        f"Could not interpret '{field_name}' as boolean for genus {genus}: {value!r} (type: {type(value)!r})"
     )
 
 def download_required_for(wildcards):
@@ -68,11 +90,31 @@ def protein_fastas_for_build():
 def protein_manifests_for_build():
     return [f"{BUILD_DIR}/proteins/{g}.manifest.tsv" for g in GENERA]
 
+def extract_input_for(wildcards):
+    planned_faa = Path(planned_protein_fasta_for(wildcards))
+    default_output_faa = Path(f"{BUILD_DIR}/proteins/{wildcards.genus}.faa")
+
+    if planned_faa.exists() and planned_faa != default_output_faa:
+        return str(planned_faa)
+
+    return f"{BUILD_DIR}/rehydrated/{wildcards.genus}_genomes"
+
+def genus_summary_for(wildcards):
+    return f"{BUILD_DIR}/rehydration_summary/{wildcards.genus}.tsv"
+
+def genus_summaries_for_build():
+    return [f"{BUILD_DIR}/rehydration_summary/{g}.tsv" for g in GENERA]
+
+BUILD_COMPLETENESS_TSV = f"{BUILD_DIR}/build_completeness.tsv"
+BUILD_COMPLETENESS_CHECK = f"{BUILD_DIR}/build_completeness.ok"
+
 rule all:
     input:
-        config["final_database"]
+        config["final_database"],
+        BUILD_COMPLETENESS_CHECK
 
 include: "rules/download_genomes.smk"
 include: "rules/rehydrate_genomes.smk"
 include: "rules/extract_proteins.smk"
 include: "rules/build_database.smk"
+include: "rules/check_completeness.smk"

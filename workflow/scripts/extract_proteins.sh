@@ -31,8 +31,9 @@ genus_safe="$(sanitize "$genus")"
   )
 
   if [[ ${#protein_files[@]} -eq 0 ]]; then
-    echo "No protein.faa or protein.faa.gz found for: $rehydrated_dir"
-    exit 1
+    echo "WARNING: No protein.faa or protein.faa.gz found for: $rehydrated_dir"
+    echo "Leaving empty FASTA and header-only manifest for this genus."
+    exit 0
   fi
 
   for pf in "${protein_files[@]}"; do
@@ -63,8 +64,8 @@ genus_safe="$(sanitize "$genus")"
   done
 
   if [[ ! -s "$out_fasta" ]]; then
-    echo "Output FASTA is empty: $out_fasta"
-    exit 1
+    echo "WARNING: Output FASTA is empty after processing: $out_fasta"
+    exit 0
   fi
 
 } &> "$log"
