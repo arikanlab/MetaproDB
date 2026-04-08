@@ -30,6 +30,8 @@ rehydrate_status=0
 expected_genomes=0
 successful_genomes=0
 represented="FALSE"
+download_status="OK"
+download_detail=""
 
 {
   echo "ZIP: $zip_file"
@@ -42,24 +44,38 @@ represented="FALSE"
 
   unzip -oq "$zip_file" -d "$genus_dir"
 
-  set +e
-  datasets rehydrate --directory "$genus_dir"
-  rehydrate_status=$?
-  set -e
+  placeholder_file="$genus_dir/.metaprodb_placeholder.tsv"
 
-  if [[ -d "$genus_dir/ncbi_dataset/data" ]]; then
-    expected_genomes=$(find "$genus_dir/ncbi_dataset/data" -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ')
-    successful_genomes=$(find "$genus_dir/ncbi_dataset/data" -type f \( -name 'protein.faa' -o -name 'protein.faa.gz' \) | wc -l | tr -d ' ')
-  else
+  if [[ -f "$placeholder_file" ]]; then
+    echo "Detected placeholder zip. Skipping datasets rehydrate."
+    download_status="$(awk -F'\t' 'NR==2 {print $2}' "$placeholder_file")"
+    download_detail="$(awk -F'\t' 'NR==2 {print $3}' "$placeholder_file")"
+    rehydrate_status=0
     expected_genomes=0
     successful_genomes=0
-  fi
+    represented="FALSE"
+  else
+    set +e
+    datasets rehydrate --directory "$genus_dir"
+    rehydrate_status=$?
+    set -e
 
-  if [[ "$successful_genomes" -ge 1 ]]; then
-    represented="TRUE"
+    if [[ -d "$genus_dir/ncbi_dataset/data" ]]; then
+      expected_genomes=$(find "$genus_dir/ncbi_dataset/data" -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ')
+      successful_genomes=$(find "$genus_dir/ncbi_dataset/data" -type f \( -name 'protein.faa' -o -name 'protein.faa.gz' \) | wc -l | tr -d ' ')
+    else
+      expected_genomes=0
+      successful_genomes=0
+    fi
+
+    if [[ "$successful_genomes" -ge 1 ]]; then
+      represented="TRUE"
+    fi
   fi
 
   echo
+  echo "DOWNLOAD_STATUS: $download_status"
+  echo "DOWNLOAD_DETAIL: $download_detail"
   echo "REHYDRATE_EXIT_STATUS: $rehydrate_status"
   echo "EXPECTED_GENOMES: $expected_genomes"
   echo "SUCCESSFUL_GENOMES: $successful_genomes"
@@ -78,8 +94,8 @@ represented="FALSE"
 } &> "$log_file"
 
 genus_stub="$(basename "$zip_file" _genomes.zip)"
-printf "genus_file_stub\texpected_genomes\tsuccessful_genomes\trepresented\trehydrate_exit_status\n" > "$summary_tsv"
-printf "%s\t%s\t%s\t%s\t%s\n" \
-  "$genus_stub" "$expected_genomes" "$successful_genomes" "$represented" "$rehydrate_status" >> "$summary_tsv"
+printf "genus_file_stub\texpected_genomes\tsuccessful_genomes\trepresented\trehydrate_exit_status\tdownload_status\tdownload_detail\n" > "$summary_tsv"
+printf "%s\t%s\t%s\t%s\t%s\t%s\t%s\n" \
+  "$genus_stub" "$expected_genomes" "$successful_genomes" "$represented" "$rehydrate_status" "$download_status" "$download_detail" >> "$summary_tsv"
 
 echo "Rehydrated $(basename "$zip_file") -> $genus_dir"

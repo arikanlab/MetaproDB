@@ -22,8 +22,8 @@ write_snakemake_config <- function(build_plan_path,
                                    path,
                                    host_proteome = NULL,
                                    download_failure_policy = "permissive",
-                                   min_genome_success_fraction = 0.90,
-                                   min_genus_success_fraction = 0.85) {
+                                   min_genome_success_fraction = 0.8,
+                                   min_genus_success_fraction = 0.8) {
   if (!is.character(build_plan_path) || length(build_plan_path) != 1 || is.na(build_plan_path)) {
     rlang::abort("`build_plan_path` must be a single non-missing character value.")
   }

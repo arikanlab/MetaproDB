@@ -293,8 +293,8 @@ The generated Snakemake config includes:
 
 By default, custom builds are configured with a **permissive** policy and threshold values that allow the workflow to continue when recovery remains sufficiently complete. Build success is then evaluated using:
 
-- the fraction of selected genera represented by at least one recovered protein FASTA
-- the fraction of expected genomes successfully recovered
+- the fraction of selected genera represented by at least one recovered protein FASTA (default threshold = 0.8)
+- the fraction of expected genomes successfully recovered (default threshold = 0.8)
 
 These summaries are written to:
 

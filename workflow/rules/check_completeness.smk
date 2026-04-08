@@ -18,11 +18,15 @@ rule check_build_completeness:
         summary["expected_genomes"] = pd.to_numeric(summary["expected_genomes"])
         summary["successful_genomes"] = pd.to_numeric(summary["successful_genomes"])
 
+        if "download_status" not in summary.columns:
+            summary["download_status"] = "OK"
+
         n_selected_genera = len(summary)
         n_represented_genera = int((summary["represented"].astype(str).str.upper() == "TRUE").sum())
         n_expected_genomes = int(summary["expected_genomes"].sum())
         n_successful_genomes = int(summary["successful_genomes"].sum())
         n_failed_genomes = int(n_expected_genomes - n_successful_genomes)
+        n_download_placeholder = int((summary["download_status"].astype(str).str.upper() != "OK").sum())
 
         genus_success_fraction = (
             n_represented_genera / n_selected_genera if n_selected_genera > 0 else 0.0
@@ -52,6 +56,7 @@ rule check_build_completeness:
             "n_successful_genomes": n_successful_genomes,
             "n_failed_genomes": n_failed_genomes,
             "genome_success_fraction": genome_success_fraction,
+            "n_download_placeholder_genera": n_download_placeholder,
             "decision": "pass" if passed else "fail",
             "decision_mode": decision_mode
         }])
@@ -69,7 +74,8 @@ rule check_build_completeness:
                 f"Represented genera: {n_represented_genera}/{n_selected_genera} "
                 f"({genus_success_fraction:.3f}); "
                 f"Successful genomes: {n_successful_genomes}/{n_expected_genomes} "
-                f"({genome_success_fraction:.3f})."
+                f"({genome_success_fraction:.3f}); "
+                f"Placeholder downloads: {n_download_placeholder}."
             )
 
         Path(output.ok).touch()

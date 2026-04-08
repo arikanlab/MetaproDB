@@ -3,7 +3,8 @@ rule download_genomes:
         zip = f"{RESOURCES_DIR}" + "/{genus}_genomes.zip"
     params:
         genus=lambda wildcards: genus_name_for(wildcards),
-        force_download=lambda wildcards: download_required_for(wildcards)
+        force_download=lambda wildcards: download_required_for(wildcards),
+        policy=DOWNLOAD_FAILURE_POLICY
     log:
         f"{BUILD_DIR}" + "/logs/download_{genus}.log"
     conda:
@@ -14,5 +15,6 @@ rule download_genomes:
             "{params.genus}" \
             "{output.zip}" \
             "{log}" \
-            "{params.force_download}"
+            "{params.force_download}" \
+            "{params.policy}"
         """
