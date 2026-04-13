@@ -47,8 +47,8 @@ plan_build_from_phyloseq <- function(ps,
                                      keep_unclassified = FALSE,
                                      write_plan = TRUE,
                                      download_failure_policy = "permissive",
-                                     min_genome_success_fraction = 0.90,
-                                     min_genus_success_fraction = 0.85) {
+                                     min_genome_success_fraction = 0.80,
+                                     min_genus_success_fraction = 0.80) {
 
   if (!inherits(ps, "phyloseq")) {
     rlang::abort("`ps` must be a phyloseq object.")
