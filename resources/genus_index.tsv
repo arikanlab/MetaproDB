@@ -14,7 +14,6 @@ Aliivibrio	Aliivibrio	Aliivibrio_genomes.zip	0.1.0	NCBI	2026-04-03	12	4a81aa78b9
 Anaerococcus	Anaerococcus	Anaerococcus_genomes.zip	0.1.0	NCBI	2026-04-03	18	5310c43a52337858d65642bc7376c65010122b3aa92a78147f9a68dca0cd7f95	19129
 Aquifex	Aquifex	Aquifex_genomes.zip	0.1.0	NCBI	2026-04-03	2	cf5e39cf64b881603deabf61dabba979caeb89577eb033c5b42be3a2765dbba2	3860
 Arcobacter	Arcobacter	Arcobacter_genomes.zip	0.1.0	NCBI	2026-04-03	31	08c24cc239c5a97cfb55531981dcbf9caa6c1d3f326de2a8170495fb80e98f0e	27462
-Atopobium	Atopobium	Atopobium_genomes.zip	0.1.0	NCBI	2026-04-03	2	f860b7aaa747e0a2c8569568a3e4bc5d04afdd43cf50eb13374d80f8adea0b7b	4449
 Bacillus	Bacillus	Bacillus_genomes.zip	0.1.0	NCBI	2026-04-03	4469	179b5574ba1d63f6515c4c3fed1da839e9f88f3325db099095844e4b23aa092a	2707333
 Bacteroides	Bacteroides	Bacteroides_genomes.zip	0.1.0	NCBI	2026-04-03	421	9425027033e1c9c3cf65f72b5e9f5ed7a2f1f1303b2d12f9eecf31c8f303f980	256669
 Bdellovibrio	Bdellovibrio	Bdellovibrio_genomes.zip	0.1.0	NCBI	2026-04-03	71	ac7ada26cb3da93d16e0efdc3ac6d082290f362ce2c2e69013cc60593639132d	44937
@@ -26,7 +25,6 @@ Brevundimonas	Brevundimonas	Brevundimonas_genomes.zip	0.1.0	NCBI	2026-04-03	112	
 Caldimicrobium	Caldimicrobium	Caldimicrobium_genomes.zip	0.1.0	NCBI	2026-04-03	2	ff8fe42d00c7647d26388ce387e0296562367efd0e2b41650fa2831f6a0ca15d	4312
 Campylobacter	Campylobacter	Campylobacter_genomes.zip	0.1.0	NCBI	2026-04-03	1964	7018568802bec2177fb4e98619c6f6e76bb0f323c8bcff8fe5e3a35028584b01	938507
 Candidatus Aquiluna	Candidatus_Aquiluna	Candidatus_Aquiluna_genomes.zip	0.1.0	NCBI	2026-04-03	6	914a459ddc5d4e51d3df187fca6c7f7b3bd4092d1e0a5a2ec311082fd86366e5	6673
-Candidatus Brocadia	Candidatus_Brocadia	Candidatus_Brocadia_genomes.zip	0.1.0	NCBI	2026-04-03	2	deff43d107307361d8b5de20f2af146ab8757a0f8eb1320b80f7adede72313fe	5603
 Capnocytophaga	Capnocytophaga	Capnocytophaga_genomes.zip	0.1.0	NCBI	2026-04-03	74	3f420f72157238c4f35fa9051deb1f909220ea866de0c263aceae0eb72c06194	54252
 Caproiciproducens	Caproiciproducens	Caproiciproducens_genomes.zip	0.1.0	NCBI	2026-04-03	11	daa2ee9262d0b09389440fa5319fea3c16ac9f22a22f87fc7f2a1ec954cdcf6c	10578
 Cellvibrio	Cellvibrio	Cellvibrio_genomes.zip	0.1.0	NCBI	2026-04-03	10	fc30fed526e4971e31960c0af049d9689222d971c2aa9a8f6993175b2a66d658	7716
@@ -36,25 +34,19 @@ Chryseobacterium	Chryseobacterium	Chryseobacterium_genomes.zip	0.1.0	NCBI	2026-0
 Corynebacterium	Corynebacterium	Corynebacterium_genomes.zip	0.1.0	NCBI	2026-04-03	1171	efebc487c04b61ee3122dbbdf168453b0edadd7a274fb95c80ec2220f663b3ab	688156
 Cutibacterium	Cutibacterium	Cutibacterium_genomes.zip	0.1.0	NCBI	2026-04-03	119	092ea6c474d9fd968f8e62e42bb1a94c30bb79bfd2e47ab4d6a466b5c5023e4b	77562
 Desulfatiglans	Desulfatiglans	Desulfatiglans_genomes.zip	0.1.0	NCBI	2026-04-03	2	a041402eaa4db0d1fa88384da5bdfad1b32ddbd815106f5fd543e4a5012195d2	4203
-Desulfobacter	Desulfobacter	Desulfobacter_genomes.zip	0.1.0	NCBI	2026-04-03	5	74699ea0683c63f1053ffb9f09dbe3b07e9e18cb42fc2a2087b22ac46b9eef47	15201
 Desulfobulbus	Desulfobulbus	Desulfobulbus_genomes.zip	0.1.0	NCBI	2026-04-03	8	31fed8f19a172f2b3f3b4740435adbc4fac1efba9998aa811c057b081447cbbe	11724
 Desulfocapsa	Desulfocapsa	Desulfocapsa_genomes.zip	0.1.0	NCBI	2026-04-03	2	0d6f0e6ffdf88e18cfa7b86eee452469ad5b1ba43bb9917c6b189a5dbeb388f2	4000
-Desulforhopalus	Desulforhopalus	Desulforhopalus_genomes.zip	0.1.0	NCBI	2026-04-03	2	84fcbace9fc33061df64f1f2557e18333fdd3d53754ba9d2612c2f645073670c	6556
-Desulfurella	Desulfurella	Desulfurella_genomes.zip	0.1.0	NCBI	2026-04-03	2	15ad5839837751aa725822831e375eed6c424c33743d9c87a4f1edcd5f77682b	4842
 Desulfuromonas	Desulfuromonas	Desulfuromonas_genomes.zip	0.1.0	NCBI	2026-04-03	13	ffbbe22c466c282c275af7aa8eb08d6f3a33d4b516c30ac72a66463911eced11	19412
 Dialister	Dialister	Dialister_genomes.zip	0.1.0	NCBI	2026-04-03	6	0eddd48893b4fbd962c5a7edc50ef73643ad0aa9ba267273d966b5fe65c1c1dd	9357
 Dictyoglomus	Dictyoglomus	Dictyoglomus_genomes.zip	0.1.0	NCBI	2026-04-03	14	95a37b8311939ff950e4c206ba3ef3eaccf6f39069f5b7335d5bb3c68e5af0a7	10089
 Dolosigranulum	Dolosigranulum	Dolosigranulum_genomes.zip	0.1.0	NCBI	2026-04-03	40	921a28bf2797bb210583ebb60fbe163f53a3ef8e6c50f3418ae20bda9daecbd3	19258
 Draconibacterium	Draconibacterium	Draconibacterium_genomes.zip	0.1.0	NCBI	2026-04-03	15	7979b30bce19945fb275ef6ea9a2ff3eed965b71d3a46b7875f000dcdf24dad0	32856
 Eikenella	Eikenella	Eikenella_genomes.zip	0.1.0	NCBI	2026-04-03	10	18af4e2b98286879e2f87eff873ea84ac5f5c37f8b5c865980a568e7b268fc1d	9190
-Enhydrobacter	Enhydrobacter	Enhydrobacter_genomes.zip	0.1.0	NCBI	2026-04-03	2	dd77dec45caf453b0fe9fc6c4e2a6fef04aeb721b06f5f813b4f59bf078b8418	4369
 Enterobacter	Enterobacter	Enterobacter_genomes.zip	0.1.0	NCBI	2026-04-03	1968	be702761566c0388694f675ae5da9590e286b1b0e75b8ee447f152b0818a11dc	1155132
 Enterococcus	Enterococcus	Enterococcus_genomes.zip	0.1.0	NCBI	2026-04-03	2837	e97984f0b2197fd621c32a0b0e767f73cd4101acd70abae07f04289d10fdad7b	1448659
 Erysipelatoclostridium	Erysipelatoclostridium	Erysipelatoclostridium_genomes.zip	0.1.0	NCBI	2026-04-03	16	2cc7ef472ef2cc91a886f512f4edd8d620237ec1f9fe9d09400df4f1b448c0c6	17813
-Facklamia	Facklamia	Facklamia_genomes.zip	0.1.0	NCBI	2026-04-03	2	54fa194e520185a860e3feb3197a2e8e8a85c67cf1735a66bca33a9bf5db7a3d	4394
 Fastidiosipila	Fastidiosipila	Fastidiosipila_genomes.zip	0.1.0	NCBI	2026-04-03	1	3548d6f3aebb7729c6a41888699863e2bdf6bd29ff3df5579946dfc5e572875f	4653
 Fervidobacterium	Fervidobacterium	Fervidobacterium_genomes.zip	0.1.0	NCBI	2026-04-03	23	ecc85e2275a546a4e37fdb6340f3d7431a591aaa5139215374bde6735136a6e4	21709
-Finegoldia	Finegoldia	Finegoldia_genomes.zip	0.1.0	NCBI	2026-04-03	12	1d9e23fc2fadebd7150ba19978d2c0438e17a821613062a096fc3f8984e674bd	9347
 Flavobacterium	Flavobacterium	Flavobacterium_genomes.zip	0.1.0	NCBI	2026-04-03	413	bf4214e1c5bd7eabd5e1900cc14da2a261136c507afd0a9b4fb46eb46f04e4d3	276428
 Fluviicola	Fluviicola	Fluviicola_genomes.zip	0.1.0	NCBI	2026-04-03	4	362f4d14bb6d15a8a2f1def6b0f7aee53b750a5c96c31eecb72dce2e7e9d9cf4	9541
 Fusibacter	Fusibacter	Fusibacter_genomes.zip	0.1.0	NCBI	2026-04-03	4	ec12afd27173deb9b81f1ddbe0072493c3f3b90b4dd51b1bc6d5aac8c2059850	8529
@@ -69,7 +61,6 @@ Halioglobus	Halioglobus	Halioglobus_genomes.zip	0.1.0	NCBI	2026-04-03	6	553146a2
 Halomonas	Halomonas	Halomonas_genomes.zip	0.1.0	NCBI	2026-04-03	137	ecdf963495a5d4fee5ee457eb6ff00b28b774a7ad44ef1418525c79d44fe0406	113373
 Hydrogenimonas	Hydrogenimonas	Hydrogenimonas_genomes.zip	0.1.0	NCBI	2026-04-03	9	80b1c3232cd793546f9bb2944b0349de7abb1d52bbd449e635360fab6166e04e	8762
 Hydrogenivirga	Hydrogenivirga	Hydrogenivirga_genomes.zip	0.1.0	NCBI	2026-04-03	2	2058b353619a9cdf92c3d93fde8f06cd64987bb70309926e8533bc758287326d	4229
-Hydrogenobaculum	Hydrogenobaculum	Hydrogenobaculum_genomes.zip	0.1.0	NCBI	2026-04-03	10	ddb81877a4adc529855c93b5aba25b0fcbda4320afcd0b5872b99b495a7958a0	8257
 Hydrogenophilus	Hydrogenophilus	Hydrogenophilus_genomes.zip	0.1.0	NCBI	2026-04-03	4	41ca0b6c2ef188da8db9b5bb3dc8e82624b97d70d8ea81b1244c16d75479f0c3	5599
 Kingella	Kingella	Kingella_genomes.zip	0.1.0	NCBI	2026-04-03	19	6674939436760fa88aacf6bbf450be1eba6edf6c901ac6b9787ba3bd0f9e722d	17217
 Lachnoanaerobaculum	Lachnoanaerobaculum	Lachnoanaerobaculum_genomes.zip	0.1.0	NCBI	2026-04-03	3	e679ea0d99bb585440336aba97d0f6581195422e8a48a0189f597e713562d74c	6800
@@ -81,7 +72,6 @@ Legionella	Legionella	Legionella_genomes.zip	0.1.0	NCBI	2026-04-03	477	e31f67dc4
 Leptotrichia	Leptotrichia	Leptotrichia_genomes.zip	0.1.0	NCBI	2026-04-03	42	c080b9b61ba4d1abb1d95d45de21805d49c895a038e141c3d9dc672c0990457b	31379
 Leuconostoc	Leuconostoc	Leuconostoc_genomes.zip	0.1.0	NCBI	2026-04-03	207	51938463db99053b9f4fa96928bdd4c6b4b73dff400203a30de8833209c6a684	134889
 Limnobacter	Limnobacter	Limnobacter_genomes.zip	0.1.0	NCBI	2026-04-03	4	bd1705e116a9af2a24a327331f8c20bb47d87ab98147905ffa05d42ef9793a33	5271
-Limnohabitans	Limnohabitans	Limnohabitans_genomes.zip	0.1.0	NCBI	2026-04-03	21	cd1f35cfdf6bd6c95511be2e625880c3dcaa8ea098d60f8a84e8a22ce4f9799a	15164
 Luteolibacter	Luteolibacter	Luteolibacter_genomes.zip	0.1.0	NCBI	2026-04-03	10	de65585adbc0807390e3ee18b9afbc8169bd3a00a6850f61795f2c26ef7fdfea	9315
 Lysobacter	Lysobacter	Lysobacter_genomes.zip	0.1.0	NCBI	2026-04-03	68	f7c742895daec259183fd64269af116629051b894766e5e726e060c0b5af5e06	49815
 Macrococcus	Macrococcus	Macrococcus_genomes.zip	0.1.0	NCBI	2026-04-03	54	76522488b702102f97717b823b35662d91689d9c7ccd29659e36302e0db63b0c	31585
@@ -102,8 +92,6 @@ Paracoccus	Paracoccus	Paracoccus_genomes.zip	0.1.0	NCBI	2026-04-03	119	08ac78f9b
 Pectobacterium	Pectobacterium	Pectobacterium_genomes.zip	0.1.0	NCBI	2026-04-03	255	4757a5269b0f6ebd19a17fd5559de035013dc063427aaeb7ccf69ce74956ac67	167219
 Peptoclostridium	Peptoclostridium	Peptoclostridium_genomes.zip	0.1.0	NCBI	2026-04-03	2	b97aa7f1ee7c4066163663226c71c5ac97793e2980b4d50af1a2591852e944fe	4624
 Peptoniphilus	Peptoniphilus	Peptoniphilus_genomes.zip	0.1.0	NCBI	2026-04-03	13	1fb32c88d72b4f49b559ef41d5eb1ee8e04e9f79cd316e807e5f8e861ecbb6a4	16774
-Pirellula	Pirellula	Pirellula_genomes.zip	0.1.0	NCBI	2026-04-03	4	2beba9e1095b7727e238ea049c5daf1f1bb73ad1986ee8bbcee8166b9e32cc5a	5887
-Planctomyces	Planctomyces	Planctomyces_genomes.zip	0.1.0	NCBI	2026-04-03	4	d1d8eb2bb84162bacad3aa488f1e4222e4df328e69ea7bbcf39216a49788b111	4875
 Plesiomonas	Plesiomonas	Plesiomonas_genomes.zip	0.1.0	NCBI	2026-04-03	13	6fdd1d20a52572277bc710355a0d0e8fcd7c8dc2e13b5ba15c027f96457c16c2	9838
 Polynucleobacter	Polynucleobacter	Polynucleobacter_genomes.zip	0.1.0	NCBI	2026-04-03	161	0e0659d5b55490f502fcc032c42366f56b56e518245cd390434a37340cedd3ba	83832
 Porphyromonas	Porphyromonas	Porphyromonas_genomes.zip	0.1.0	NCBI	2026-04-03	88	ec8e7c3dfec1e3919d2f0d8635468dc62a72fd9eecdf8fcfa6465e0e9e14d17e	60393
@@ -114,13 +102,10 @@ Pseudoalteromonas	Pseudoalteromonas	Pseudoalteromonas_genomes.zip	0.1.0	NCBI	202
 Pseudomonas	Pseudomonas	Pseudomonas_genomes.zip	0.1.0	NCBI	2026-04-03	6017	ac8ffdabbfb932c31fb02ec8c7eb997dd9917fc41d79f4bfa227fc00d3e5ca73	3415004
 Psychrobacter	Psychrobacter	Psychrobacter_genomes.zip	0.1.0	NCBI	2026-04-03	76	21cf2295c3d17f89da69c169402ddc202732226f8498ca4faff907ddea291487	61298
 Ralstonia	Ralstonia	Ralstonia_genomes.zip	0.1.0	NCBI	2026-04-03	612	7871721db00902e1e7456d2b36da07887e4f51aaffbf88349de91200f0d69f88	311698
-Reyranella	Reyranella	Reyranella_genomes.zip	0.1.0	NCBI	2026-04-03	1	8cbd23e124d41835e717c7c3d2c3e98a1c2421c2a121faf4de9d77feb60c6fb7	10678
 Rhodopirellula	Rhodopirellula	Rhodopirellula_genomes.zip	0.1.0	NCBI	2026-04-03	4	400d63fcda53b691d4fd361c20f9e06fba0906ab9956b338c79667dd9a283d3a	6569
-Romboutsia	Romboutsia	Romboutsia_genomes.zip	0.1.0	NCBI	2026-04-03	2	99da45b89996586c82976357030142b61e0c6a1d34e687aab714d64945217fa0	4081
 Rothia	Rothia	Rothia_genomes.zip	0.1.0	NCBI	2026-04-03	62	bc276a6347ceacb1507c9be9fdf4c37db89b44fa723d59a23c12e217d58235e9	50333
 Ruminiclostridium	Ruminiclostridium	Ruminiclostridium_genomes.zip	0.1.0	NCBI	2026-04-03	6	c3128451d3f83bebd280e65b17bddc1c53b5d4777d51b5ca5a9ce6c462b0be1a	6904
 Salmonella	Salmonella	Salmonella_genomes.zip	0.1.0	NCBI	2026-04-03	4868	4058d9fa2c5f468fdad4404ca6a18ccb88bb4f4373452b64dc5bba1719d6c606	2784949
-Sedimentibacter	Sedimentibacter	Sedimentibacter_genomes.zip	0.1.0	NCBI	2026-04-03	8	7ec50c10873bb5abb56f5c56b4c0265cae1ff925beb32afd19b8ff97e8bba76a	6942
 Sediminibacterium	Sediminibacterium	Sediminibacterium_genomes.zip	0.1.0	NCBI	2026-04-03	4	b8dce24a4c3a6008cd2d7cf04207aa8c96e49419c7b33189803f84493b75503b	7273
 Selenomonas	Selenomonas	Selenomonas_genomes.zip	0.1.0	NCBI	2026-04-03	5	6348a9e543a161a6c1f4b6ead2172b3502c74afbd70886128487fd39e37b9a26	20049
 Sphingomonas	Sphingomonas	Sphingomonas_genomes.zip	0.1.0	NCBI	2026-04-03	220	aa3d437e635256c8fb9757f3606843aa3efd21e5b06231cc542e15a5564a5c81	168099

@@ -65,8 +65,6 @@ fi
   echo "DATASETS_VERSION: $(datasets --version || true)"
   echo
 
-  rm -f "$zip_file"
-
   if [[ "$force_download" != "TRUE" ]]; then
     if [[ -s "$zip_file" ]]; then
       echo "Using cached zip: $zip_file"
@@ -86,6 +84,8 @@ fi
       exit 0
     fi
   fi
+
+rm -f "$zip_file"
 
   set +e
   datasets download genome taxon "$genus" \
